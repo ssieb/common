@@ -2142,6 +2142,13 @@ minetest.register_abm({
 			return
 		end
 
+		if not inv:room_for_item("dst", cooked.item) then
+			meta:set_string("infotext", "Furnace output bins are full")
+			hacky_swap_node(pos, "default:furnace")
+			meta:set_string("formspec", default.furnace_inactive_formspec)
+			return
+		end
+
 		meta:set_string("fuel_totaltime", fuel.time)
 		meta:set_string("fuel_time", 0)
 		
